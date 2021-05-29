@@ -8,19 +8,19 @@ V = 50
 #s.setMinMax(20, 6000, 20, 6000)
 s.kalibrierStart()
 
-print(utime.ticks_ms())
+#print(utime.ticks_ms())
 for i in range(500): 
     s.kalibrierRunde()
     utime.sleep_ms(10)
-print(utime.ticks_ms())
-print(s.miniL, s.maxiL, s.miniR, s.maxiR)
+#print(utime.ticks_ms())
+#print(s.miniL, s.maxiL, s.miniR, s.maxiR)
 
-print("")
+#print("")
 
-print(utime.ticks_ms())
+#print(utime.ticks_ms())
 for i in range(10000): 
     s.messen()
-print(utime.ticks_ms())
+#print(utime.ticks_ms())
 
 while True:
     s.messen()
