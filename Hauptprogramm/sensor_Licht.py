@@ -2,8 +2,8 @@ import machine
 import utime
 
 
-SENSOR_R = 27
-SENSOR_L = 28
+SENSOR_R = 26
+SENSOR_L = 27
 
 
 class Sensor:
@@ -36,7 +36,7 @@ class Sensor:
         misst und setzt bei Bedarf Minimum und Maximum
         """
         self.led.value(1)
-        utime.sleep_us(10)
+        utime.sleep_us(30)
         self.wertR = self.pinR.read_u16()
         self.wertL = self.pinL.read_u16()
         #print("messe", self.name)
@@ -55,7 +55,7 @@ class Sensor:
         
     def messen(self):
         self.led.value(1)
-        utime.sleep_us(20)
+        utime.sleep_us(30)
         wertR = self.pinR.read_u16()
         wertL = self.pinL.read_u16()
         #print("messe", self.name)
@@ -68,3 +68,11 @@ class Sensor:
         self.miniL = minL
         self.maxiR = maxR
         self.miniR = minR
+        
+    def printMinMax(self):
+        print("minL = " + str(self.miniL))
+        print("maxL = " + str(self.maxiL))
+        print("minR = " + str(self.miniR))
+        print("maxL = " + str(self.maxiR))
+         
+         
