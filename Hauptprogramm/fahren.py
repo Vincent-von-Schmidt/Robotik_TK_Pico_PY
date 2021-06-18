@@ -29,9 +29,29 @@ def drehe(V, t, richtung, sensor):
     Off(MOT_AB)
     return 0
 
+def fahreVor(V, t, sensor, richtung):
+    t1 = utime.ticks_ms
+    t2 = t1
+
+    OnFwd(MOT_AB, V)
+
+    while (t2 - t1) < t:
+        utime.sleep_ms(1)
+        sensor.messen()
+        t2 = utime.ticks_ms()
+        if richtung == RECHTS:
+            SensorWert = sensor.wertR
+        else:
+            SensorWert = sensor.wertL
+        if SensorWert < SCHWARZ: 
+            Off(MOT_AB)
+            return 1 # schwarz gefunden -> stop und return
+        
+        Off(MOT_AB) 
+        return 0
 
 
-'''
+
 def doseUmfahren(richtung, sensor):
     Mot1 = MOT_A
     Mot2 = MOT_B
@@ -52,5 +72,16 @@ def doseUmfahren(richtung, sensor):
         print(istSchwarz)
         istSchwarz = drehe(100, 400, richtung, sensor)
         if istSchwarz == 0:
-            istSchwarz = 
-        '''
+            istSchwarz = fahreVor(80, 700, sensor, richtung)
+    
+    OnFwd(Mot1, 120)
+    OnRev(Mot2, 50)
+    utime.sleep_ms(500)
+    OnFwd(MOT_AB, 80)
+    utime.sleep_ms(500)
+    
+    if richtung == RECHTS:
+        drehe(100, 2000, LINKS)
+    else:
+        drehe(100, 2000, RECHTS)
+    Off(MOT_AB)

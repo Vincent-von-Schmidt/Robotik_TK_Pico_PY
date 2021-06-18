@@ -53,7 +53,6 @@ led.value(0)
 
 print("Taste R --> Kalibrieren, losfahren")
 print("Taste L --> losfahre")
-print("keine Taste nach 5 sek. --> losfahren")
 
 tasteL = TASTER_L.value()
 tasteR = TASTER_R.value()
@@ -83,21 +82,21 @@ print("Fahre los ... Taste L --> stop")
 count = 0
 
     
-drehe(V, 5000, RECHTS, s)
-'''
-while not TASTER_L.value() == 1:
+#drehe(V, 5000, RECHTS, s)
+while True:
     s.messen()
     diff = s.wertR - s.wertL
     diff = diff * 5
     # utime.sleep_ms(100)
+    if (TasterR.value() == 1) ^ (TasterL.value() == 1):
+        doseUmfahren(RECHTS, s)
+    '''
     count = count + 1
     if  count == 20:
         print(s.wertR,s.wertL,diff)
         count = 0
-
-    #OnFwd(MOT_A, V - diff)
-    #OnFwd(MOT_B, V + diff)'''
-Off(MOT_AB)
+'''
+    OnFwd(MOT_A, V - diff)
+    OnFwd(MOT_B, V + diff)
 
   
-print("ENDE")
